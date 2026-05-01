@@ -7,18 +7,19 @@
 .topbar-panel {
   max-width: 1360px;
   margin: 0 auto 18px;
-  padding: 12px 14px 10px;
-  border: 1px solid var(--panel-border);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.05);
+  padding: 14px 16px 12px;
+  border: 1px solid rgba(158, 138, 120, 0.18);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 253, 249, 0.98), rgba(255, 251, 245, 0.96));
+  box-shadow: 0 16px 32px rgba(54, 39, 28, 0.06);
 }
 
 .product-block {
   min-width: 0;
   display: flex;
   align-items: baseline;
-  gap: 10px;
+  gap: 12px;
   white-space: nowrap;
 }
 
@@ -26,19 +27,19 @@
   margin: 0;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent);
 }
 
 .product-block h1 {
   margin: 0;
-  font-family: var(--font-ui);
-  font-size: 0.98rem;
+  font-family: var(--font-editorial);
+  font-size: 1.02rem;
   line-height: 1.25;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.01em;
   color: var(--heading);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .toolbar {
@@ -53,52 +54,29 @@
   flex-wrap: nowrap;
 }
 
-.template-hub {
+.design-badge {
   min-width: 0;
   flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
-  overflow: hidden;
+  gap: 2px;
+  text-align: center;
 }
 
-.template-picker {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  border-radius: 12px;
-  border: 1px solid var(--panel-border);
-  background: #fff;
-  color: var(--body);
-  font-size: 0.86rem;
-  flex: 0 0 auto;
+.design-badge strong {
+  font-family: var(--font-editorial);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--heading);
 }
 
-.template-picker span {
-  font-weight: 700;
-}
-
-.template-picker select {
-  border: none;
-  background: transparent;
-  font: inherit;
-  color: inherit;
-  min-width: 118px;
-  outline: none;
-}
-
-.featured-inline {
-  min-width: 0;
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding-bottom: 2px;
-  scrollbar-width: none;
-}
-
-.featured-inline::-webkit-scrollbar {
-  display: none;
+.design-badge span {
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 .toolbar-actions {
@@ -125,52 +103,21 @@
   transform: translateY(-1px);
 }
 
-.toolbar-actions button:focus-visible,
-.template-picker select:focus-visible {
+.toolbar-actions button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
 .ghost {
   color: var(--heading);
-  background: #fff;
-  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.22);
+  background: #fffdfa;
+  box-shadow: inset 0 0 0 1px rgba(158, 138, 120, 0.2);
 }
 
 .primary {
   color: #fff;
-  background: linear-gradient(135deg, #1f6fff, #184fcf);
-  box-shadow: 0 12px 24px rgba(31, 111, 255, 0.22);
-}
-
-.template-chip {
-  border: 1px solid rgba(148, 163, 184, 0.24);
-  background: rgba(255, 255, 255, 0.82);
-  border-radius: 999px;
-  padding: 7px 10px;
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-  transition:
-    border-color 160ms ease,
-    box-shadow 160ms ease,
-    transform 160ms ease;
-}
-
-.template-chip:hover {
-  transform: translateY(-1px);
-}
-
-.template-chip span {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--heading);
-}
-
-.template-chip.active {
-  border-color: rgba(37, 99, 235, 0.35);
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.1);
-  background: rgba(248, 251, 255, 0.96);
+  background: linear-gradient(135deg, #8e654b, #6b4732);
+  box-shadow: 0 12px 24px rgba(111, 76, 56, 0.22);
 }
 
 .status-row {
@@ -192,7 +139,7 @@
   max-width: 1360px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(320px, 1fr) minmax(320px, 1fr);
+  grid-template-columns: minmax(320px, 0.96fr) minmax(320px, 1.04fr);
   gap: 24px;
 }
 
@@ -200,25 +147,26 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--panel-border);
+  border: 1px solid rgba(158, 138, 120, 0.18);
   border-radius: 24px;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.05);
+  background: rgba(255, 253, 250, 0.96);
+  box-shadow: 0 20px 42px rgba(54, 39, 28, 0.06);
   overflow: hidden;
 }
 
 .panel-header {
   padding: 22px 24px 18px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
-  background: linear-gradient(180deg, rgba(251, 253, 255, 1), rgba(255, 255, 255, 0.92));
+  border-bottom: 1px solid rgba(158, 138, 120, 0.14);
+  background: linear-gradient(180deg, rgba(255, 252, 248, 1), rgba(255, 255, 255, 0.94));
 }
 
 .panel-header h2 {
   margin: 0;
-  font-family: var(--font-ui);
-  font-size: 1.05rem;
+  font-family: var(--font-editorial);
+  font-size: 1.08rem;
   color: var(--heading);
-  font-weight: 700;
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
 
 .panel-header p {
@@ -235,7 +183,7 @@
   resize: vertical;
   background: transparent;
   color: var(--body);
-  font: 400 0.96rem/1.75 var(--font-mono);
+  font: 400 0.98rem/1.82 var(--font-mono);
   outline: none;
 }
 
@@ -243,17 +191,19 @@
   flex: 1;
   padding: 24px;
   overflow: auto;
-  background: linear-gradient(180deg, #f8fafc, #f1f5f9);
+  background:
+    radial-gradient(circle at top, rgba(197, 176, 155, 0.18), transparent 24%),
+    linear-gradient(180deg, #f7f1ea, #f2ebe2);
 }
 
 .phone-preview {
   width: min(100%, 390px);
   margin: 0 auto;
   border-radius: 24px;
-  background: #ffffff;
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  background: #fffdf9;
+  box-shadow: 0 24px 50px rgba(72, 50, 36, 0.12);
   overflow: hidden;
-  border: 1px solid rgba(148, 163, 184, 0.18);
+  border: 1px solid rgba(158, 138, 120, 0.16);
 }
 
 .phone-preview-bar {
@@ -262,8 +212,8 @@
   align-items: center;
   gap: 12px;
   padding: 12px 16px;
-  border-bottom: 1px solid rgba(226, 232, 240, 0.9);
-  background: #ffffff;
+  border-bottom: 1px solid rgba(158, 138, 120, 0.16);
+  background: #fffaf4;
 }
 
 .phone-preview-bar span {
@@ -273,14 +223,14 @@
 
 .phone-preview-bar strong {
   font-size: 12px;
-  color: #64748b;
-  letter-spacing: 0.08em;
+  color: #8c7360;
+  letter-spacing: 0.12em;
   font-weight: 600;
 }
 
 .wechat-article {
   width: 100%;
-  padding: 20px 18px 26px;
+  padding: 24px 20px 30px;
 }
 
 @media (max-width: 1024px) {
@@ -315,9 +265,10 @@
     white-space: normal;
   }
 
-  .template-hub {
+  .design-badge {
     width: 100%;
-    flex-wrap: wrap;
+    order: 3;
+    padding-top: 2px;
   }
 
   .panel-header,

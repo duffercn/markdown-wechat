@@ -7,11 +7,10 @@ import { getTemplate, templates } from './templates'
 
 function App() {
   const [markdown, setMarkdown] = useState(SAMPLE_MARKDOWN)
-  const [templateId, setTemplateId] = useState(templates[0]?.id ?? 'default')
+  const [templateId] = useState(templates[0]?.id ?? 'flagship')
   const [copyStatus, setCopyStatus] = useState('')
   const deferredMarkdown = useDeferredValue(markdown)
   const template = getTemplate(templateId)
-  const featuredTemplates = templates.filter((item) => item.featured)
   const renderResult = renderMarkdown(deferredMarkdown, {
     templateId,
     sanitize: true,
@@ -39,37 +38,13 @@ function App() {
       <section className="topbar-panel">
         <div className="toolbar compact-toolbar">
           <div className="product-block">
-            <p className="eyebrow">Markdown to WeChat</p>
+            <p className="eyebrow">Curated Editorial Layout</p>
             <h1>微信公众号文章排版工具</h1>
           </div>
 
-          <div className="template-hub">
-            <label className="template-picker">
-              <span>模板</span>
-              <select
-                value={templateId}
-                onChange={(event) => setTemplateId(event.target.value)}
-              >
-                {templates.map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.name}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <div className="featured-inline">
-              {featuredTemplates.map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  className={item.id === templateId ? 'template-chip active' : 'template-chip'}
-                  onClick={() => setTemplateId(item.id)}
-                >
-                  <span>{item.name}</span>
-                </button>
-              ))}
-            </div>
+          <div className="design-badge">
+            <strong>{template.name}</strong>
+            <span>{template.tone}</span>
           </div>
 
           <div className="toolbar-actions">
@@ -91,7 +66,7 @@ function App() {
 
         <div className="status-row" aria-live="polite">
           <span>{copyStatus || `${template.name} · ${template.description}`}</span>
-          <span className="template-note">{template.tone}</span>
+          <span className="template-note">当前为唯一旗舰方案</span>
         </div>
       </section>
 
@@ -114,7 +89,7 @@ function App() {
         <article className="panel preview-panel">
           <div className="panel-header">
             <h2>公众号预览</h2>
-            <p>按约 390px 手机宽度模拟文章阅读区，更接近真实公众号观感。</p>
+            <p>按约 390px 手机宽度模拟成品阅读效果，强调标题比例、导语节奏与叙事感。</p>
           </div>
 
           <div className="wechat-stage">
