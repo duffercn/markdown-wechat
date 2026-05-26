@@ -24,6 +24,9 @@ design systems adapted to the constraints of WeChat rich-text paste.
   https://fontsinuse.com/
 - Awwwards Editorial Layout: contemporary editorial rhythm and hierarchy.
   https://www.awwwards.com/inspiration/editorial-layout
+- Quaily Markdown to WeChat: restrained default WeChat article formatting,
+  centered section titles, compact neutral quotes, and a phone-like preview.
+  https://quaily.com/tools/markdown-to-wx/
 - 135 Editor and iPaiban: local WeChat conventions and paste constraints.
   https://www.135editor.com/yangshi/weixin.html
   https://www.ipaiban.com/blog
@@ -49,11 +52,11 @@ design systems adapted to the constraints of WeChat rich-text paste.
 For essays, interviews, narrative writing, and reflective pieces. Serif-first,
 generous spacing, centered title, calm brown-black neutrals, delicate rules.
 
-### Knowledge Manual
+### Clean Standard
 
-For tutorials, notes, technical posts, frameworks, and structured thinking.
-Sans-first, strong section hierarchy, excellent code and table comfort, blue-gray
-ink with one intelligent accent.
+For practical posts, tutorials, notes, and general publishing. Inspired by
+Quaily's quiet WeChat formatter: neutral ink, 16px body text, centered section
+titles, gray left-rule quotes, warm inline code, and low decoration.
 
 ### Quiet Gallery
 
