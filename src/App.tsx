@@ -7,7 +7,7 @@ import { getTemplate, templates } from './templates'
 
 function App() {
   const [markdown, setMarkdown] = useState(SAMPLE_MARKDOWN)
-  const [templateId] = useState(templates[0]?.id ?? 'flagship')
+  const [templateId, setTemplateId] = useState(templates[0]?.id ?? 'editorial-journal')
   const [copyStatus, setCopyStatus] = useState('')
   const deferredMarkdown = useDeferredValue(markdown)
   const template = getTemplate(templateId)
@@ -42,7 +42,7 @@ function App() {
             <h1>微信公众号文章排版工具</h1>
           </div>
 
-          <div className="design-badge">
+          <div className="design-badge" aria-live="polite">
             <strong>{template.name}</strong>
             <span>{template.tone}</span>
           </div>
@@ -66,7 +66,25 @@ function App() {
 
         <div className="status-row" aria-live="polite">
           <span>{copyStatus || `${template.name} · ${template.description}`}</span>
-          <span className="template-note">当前为唯一旗舰方案</span>
+          <span className="template-note">精选 {templates.length} 套高区分度模板</span>
+        </div>
+
+        <div className="template-switcher" aria-label="选择文章模板">
+          {templates.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              className={item.id === templateId ? 'template-card active' : 'template-card'}
+              onClick={() => {
+                setTemplateId(item.id)
+                setCopyStatus('')
+              }}
+            >
+              <span className="template-card-name">{item.name}</span>
+              <span className="template-card-tone">{item.tone}</span>
+              <span className="template-card-desc">{item.description}</span>
+            </button>
+          ))}
         </div>
       </section>
 

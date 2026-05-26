@@ -130,6 +130,77 @@
   font-size: 0.8rem;
 }
 
+.template-switcher {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.template-card {
+  min-width: 0;
+  border: 1px solid rgba(158, 138, 120, 0.18);
+  border-radius: 12px;
+  padding: 10px 11px;
+  background: rgba(255, 253, 250, 0.72);
+  color: var(--body);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease,
+    background-color 160ms ease;
+}
+
+.template-card:hover {
+  transform: translateY(-1px);
+  border-color: rgba(141, 95, 69, 0.38);
+}
+
+.template-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.template-card.active {
+  border-color: rgba(141, 95, 69, 0.55);
+  background: #fffdfa;
+  box-shadow: 0 10px 22px rgba(72, 50, 36, 0.09);
+}
+
+.template-card-name,
+.template-card-tone,
+.template-card-desc {
+  display: block;
+}
+
+.template-card-name {
+  font-family: var(--font-editorial);
+  font-size: 0.96rem;
+  line-height: 1.25;
+  color: var(--heading);
+  font-weight: 650;
+}
+
+.template-card-tone {
+  margin-top: 4px;
+  color: var(--accent);
+  font-size: 0.72rem;
+  line-height: 1.35;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.template-card-desc {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
 .template-note {
   color: var(--heading);
   font-weight: 700;
@@ -269,6 +340,10 @@
     width: 100%;
     order: 3;
     padding-top: 2px;
+  }
+
+  .template-switcher {
+    grid-template-columns: 1fr;
   }
 
   .panel-header,
