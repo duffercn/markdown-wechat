@@ -20,13 +20,20 @@ import remarkParse from 'remark-parse'
 import { unified } from 'unified'
 import { getTemplate } from '../templates'
 import { element, escapeHtml, sanitizeUrl, serializeStyles, stripHtmlTags } from './html'
-import type { RenderOptions, RenderResult, TemplateDefinition } from './types'
+import type {
+  AppearanceOptions,
+  ComponentStyleMap,
+  RenderOptions,
+  RenderResult,
+  StyleObject,
+  TemplateDefinition,
+} from './types'
 
 export function renderMarkdown(
   markdown: string,
   options: RenderOptions,
 ): RenderResult {
-  const template = getTemplate(options.templateId)
+  const template = applyAppearance(getTemplate(options.templateId), options.appearance)
   const tree = unified().use(remarkParse).use(remarkGfm).parse(markdown) as Root
   const articleContent = renderRoot(tree, template, options)
   const rootAttributes = {
@@ -37,6 +44,103 @@ export function renderMarkdown(
   return {
     previewHtml: element('section', articleContent, rootAttributes),
     clipboardHtml: element('section', articleContent, rootAttributes),
+  }
+}
+
+function applyAppearance(
+  template: TemplateDefinition,
+  appearance?: AppearanceOptions,
+): TemplateDefinition {
+  if (!appearance) {
+    return template
+  }
+
+  const componentStyleMap = cloneComponentStyleMap(template.componentStyleMap)
+  const fontSizeDelta = appearance.fontSize === 'small' ? -1 : appearance.fontSize === 'large' ? 1 : 0
+  const lineHeightDelta =
+    appearance.lineHeight === 'compact' ? -0.1 : appearance.lineHeight === 'spacious' ? 0.16 : 0
+
+  Object.values(componentStyleMap).forEach((style) => {
+    if (fontSizeDelta !== 0 && style.fontSize) {
+      style.fontSize = adjustPx(style.fontSize, fontSizeDelta)
+    }
+
+    if (lineHeightDelta !== 0 && style.lineHeight) {
+      style.lineHeight = adjustUnitlessNumber(style.lineHeight, lineHeightDelta)
+    }
+  })
+
+  applyAccentColor(componentStyleMap, appearance.accentColor)
+
+  return {
+    ...template,
+    tokens: {
+      ...template.tokens,
+      accentColor: appearance.accentColor,
+    },
+    componentStyleMap,
+  }
+}
+
+function cloneComponentStyleMap(styleMap: ComponentStyleMap): ComponentStyleMap {
+  return Object.fromEntries(
+    Object.entries(styleMap).map(([key, value]) => [key, { ...value }]),
+  ) as ComponentStyleMap
+}
+
+function adjustPx(value: string, delta: number): string {
+  if (!value.endsWith('px')) {
+    return value
+  }
+
+  const numericValue = Number(value.replace('px', ''))
+  if (Number.isNaN(numericValue)) {
+    return value
+  }
+
+  return `${Math.max(11, numericValue + delta)}px`
+}
+
+function adjustUnitlessNumber(
+  value: string,
+  delta: number,
+): string {
+  if (!value || value.endsWith('px') || value.endsWith('em') || value.endsWith('%')) {
+    return value
+  }
+
+  const numericValue = Number(value)
+  if (Number.isNaN(numericValue)) {
+    return value
+  }
+
+  return String(Number(Math.max(1.25, numericValue + delta).toFixed(2)))
+}
+
+function applyAccentColor(styleMap: ComponentStyleMap, accentColor: string): void {
+  const accentBorder = `1px solid ${accentColor}55`
+  const accentLine = `1px solid ${accentColor}`
+  const accentRule = `3px solid ${accentColor}`
+
+  styleMap.heading3.color = accentColor
+  styleMap.link.color = accentColor
+  styleMap.link.borderBottom = accentBorder
+  styleMap.strong.color = accentColor
+  styleMap.inlineCode.color = accentColor
+
+  applyBorderAccent(styleMap.hr, 'borderTop', accentLine)
+  applyBorderAccent(styleMap.blockquote, 'borderLeft', accentRule)
+  applyBorderAccent(styleMap.leadParagraph, 'borderLeft', accentRule)
+  applyBorderAccent(styleMap.codeBlock, 'borderLeft', accentRule)
+}
+
+function applyBorderAccent(
+  style: StyleObject,
+  property: keyof StyleObject,
+  value: string,
+): void {
+  if (style[property] && style[property] !== 'none') {
+    style[property] = value
   }
 }
 
