@@ -1,7 +1,7 @@
 import { useDeferredValue, useState } from 'react'
 import './App.css'
 import { copyRichText } from './clipboard/copyRichText'
-import { SAMPLE_MARKDOWN } from './content/sampleMarkdown'
+import { getSampleMarkdown, isSampleMarkdown } from './content/sampleMarkdown'
 import type { AppearanceOptions, FontSizeOption, LineHeightOption } from './renderer/types'
 import { renderMarkdown } from './renderer/renderMarkdown'
 import { getTemplate, templates } from './templates'
@@ -40,8 +40,8 @@ const getAccentOptions = (templateId: string) =>
   accentOptionsByTemplate[templateId] ?? accentOptionsByTemplate['editorial-journal']
 
 function App() {
-  const [markdown, setMarkdown] = useState(SAMPLE_MARKDOWN)
   const [templateId, setTemplateId] = useState(templates[0]?.id ?? 'editorial-journal')
+  const [markdown, setMarkdown] = useState(getSampleMarkdown(templateId))
   const [fontSize, setFontSize] = useState<FontSizeOption>('standard')
   const [lineHeight, setLineHeight] = useState<LineHeightOption>('standard')
   const [accentColor, setAccentColor] = useState(getAccentOptions(templateId)[0]?.value ?? '#7b523d')
@@ -99,7 +99,7 @@ function App() {
             <button
               type="button"
               className="ghost"
-              onClick={() => setMarkdown(SAMPLE_MARKDOWN)}
+              onClick={() => setMarkdown(getSampleMarkdown(templateId))}
             >
               粘贴示例
             </button>
@@ -121,6 +121,9 @@ function App() {
               type="button"
               className={item.id === templateId ? 'template-card active' : 'template-card'}
               onClick={() => {
+                if (isSampleMarkdown(markdown)) {
+                  setMarkdown(getSampleMarkdown(item.id))
+                }
                 setTemplateId(item.id)
                 setAccentColor(getAccentOptions(item.id)[0]?.value ?? item.tokens.accentColor)
                 setCopyStatus('')

@@ -1,4 +1,4 @@
-export const SAMPLE_MARKDOWN = `# 在一个慢下来的下午，重新整理写作
+const EDITORIAL_SAMPLE = `# 在一个慢下来的下午，重新整理写作
 
 有些文章不是被“写完”的，而是在一次次停顿里慢慢长出来的。我们打开文档，删掉几个太用力的句子，留下真正有温度的部分。
 
@@ -43,3 +43,98 @@ export const SAMPLE_MARKDOWN = `# 在一个慢下来的下午，重新整理写�
 3. 点击“复制到公众号”
 
 剩下的，就交给文字自己发光。`
+
+const CLEAN_SAMPLE = `# 写一篇清楚的说明文
+
+这是一篇偏实用的示例。它适合教程、复盘、产品说明和方法笔记：信息要清楚，层级要稳定，读者可以快速扫读，也可以慢慢跟着做。
+
+> 如果一篇文章要帮人解决问题，排版首先要减少阻力，而不是制造气氛。
+
+## 先说结论
+
+把一篇说明文写清楚，通常可以从三个问题开始：
+
+- 这篇文章要解决什么问题？
+- 读者读完以后能做什么？
+- 哪些信息必须被快速找到？
+
+当这些问题明确以后，标题、列表、表格和引用就不只是装饰，而是帮助读者定位信息的工具。
+
+### 推荐结构
+
+1. 开头说明背景和目标
+2. 中间拆成 2-4 个步骤
+3. 重要提醒放进引用
+4. 最后给出检查清单
+
+## 让重点更容易被看见
+
+好的说明文不需要每句话都加粗。真正需要强调的，通常是条件、风险、限制和下一步动作。
+
+| 模块 | 作用 | 写法建议 |
+| --- | --- | --- |
+| 标题 | 建立入口 | 直接说明主题 |
+| 列表 | 拆解步骤 | 一项只说一件事 |
+| 表格 | 对比信息 | 控制列数，避免过宽 |
+| 引用 | 放提醒 | 简短、明确、有边界 |
+
+![清爽的工作区](https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=80)
+
+---
+
+最后再检查一遍：读者是否能在一分钟内知道文章在讲什么，是否能在三分钟内找到自己要的答案。`
+
+const GALLERY_SAMPLE = `# 雨后看展：在留白里听见颜色
+
+展厅的门刚打开，雨水还停在玻璃外侧。白墙、木地板和一盏很低的灯，把整个下午收得很轻。
+
+> 有些作品并不急着解释自己。它们只是安静地站在那里，等你把速度降下来。
+
+## 第一间展厅
+
+最先看见的是一组纸本小画。颜色很淡，像被水洗过的旧信封。画面里没有人物，也没有完整的风景，只有几道横线、几块灰绿，以及一点接近赭红的阴影。
+
+它们让人想起冬天的河岸，或者旅途中从车窗里匆匆看见的房子。那种记忆没有故事，却有温度。
+
+![安静的展厅一角](https://images.unsplash.com/photo-1545989253-02cc26577f88?auto=format&fit=crop&w=1200&q=80)
+
+### 值得停留的细节
+
+- 纸面边缘没有完全裁齐，保留了手工痕迹
+- 画框很薄，让作品和墙面之间多了一点呼吸
+- 说明文字很短，只留下材料、年份和标题
+
+## 一张椅子和一束光
+
+展厅尽头有一把木椅，没有人坐。光从右侧落下来，椅背在地面上投出细长的影子。那一刻，空间像被按下了静音键。
+
+| 作品 | 材料 | 观看感受 |
+| --- | --- | --- |
+| 《河岸》 | 纸本水彩 | 清冷、缓慢 |
+| 《无题》 | 木板油画 | 厚重、低声 |
+| 《午后》 | 摄影 | 安静、明亮 |
+
+这些作品没有给出强烈的结论。它们更像一种邀请：把眼睛从屏幕上移开，重新学习如何观看一面墙、一束光，和一个沉默的下午。
+
+---
+
+离开展厅时，雨已经停了。街道被洗得很亮，像刚刚被重新装裱过。`
+
+export const SAMPLE_MARKDOWN_BY_TEMPLATE = {
+  'editorial-journal': EDITORIAL_SAMPLE,
+  'clean-standard': CLEAN_SAMPLE,
+  'quiet-gallery': GALLERY_SAMPLE,
+} as const
+
+export const SAMPLE_MARKDOWN = EDITORIAL_SAMPLE
+
+export function getSampleMarkdown(templateId: string): string {
+  return (
+    SAMPLE_MARKDOWN_BY_TEMPLATE[templateId as keyof typeof SAMPLE_MARKDOWN_BY_TEMPLATE] ??
+    SAMPLE_MARKDOWN
+  )
+}
+
+export function isSampleMarkdown(markdown: string): boolean {
+  return (Object.values(SAMPLE_MARKDOWN_BY_TEMPLATE) as string[]).includes(markdown)
+}
