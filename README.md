@@ -21,7 +21,7 @@ npm run build
 
 - Build command: `npm run build`
 - Build output directory: `dist`
-- Node version: `20+`
+- Node version: `22.12+`
 
 这个项目不依赖后端服务，首版所有 Markdown 解析、模板套用和富文本复制都在浏览器端完成。
 
@@ -32,8 +32,18 @@ npm run build
 - 支持标题、段落、引用、列表、分隔线、链接、图片、代码块、表格
 - 通过模板配置集中管理公众号样式
 
-## 后续方向
+## 当前交付状态
 
-- 增加更多设计模板
-- 本地图片上传 + 外链托管
-- 文章历史与模板收藏
+- 线上地址：https://markdown-wechat.pages.dev/
+- GitHub：https://github.com/duffercn/markdown-wechat
+- Cloudflare Pages 已连接 GitHub，推送 `master` 后自动构建发布。
+- 保留三套中文文章模板：故事心情、商业评论、教程拆解。
+- 工具界面采用中性白底，文章以黑灰文字为主。
+- 当前版本收尾，暂无进一步功能开发计划。
+
+## 已知限制
+
+- 中文字体使用本机字体回退，不同设备的实际字体可能不同；没有托管网络字体。
+- 图片仅支持外链，不提供上传或托管。
+- 公众号编辑器可能调整粘贴内容的样式或图片，发布前仍需在公众号后台检查；未完成真实公众号后台的完整粘贴验收。
+- 不包含账号、云端保存或文章历史。

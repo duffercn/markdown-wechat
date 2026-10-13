@@ -8,11 +8,10 @@
   max-width: 1360px;
   margin: 0 auto 18px;
   padding: 14px 16px 12px;
-  border: 1px solid rgba(158, 138, 120, 0.18);
+  border: 1px solid rgba(148, 163, 184, 0.18);
   border-radius: 18px;
-  background:
-    linear-gradient(180deg, rgba(255, 253, 249, 0.98), rgba(255, 251, 245, 0.96));
-  box-shadow: 0 16px 32px rgba(54, 39, 28, 0.06);
+  background: #ffffff;
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.06);
 }
 
 .product-block {
@@ -34,10 +33,10 @@
 
 .product-block h1 {
   margin: 0;
-  font-family: var(--font-editorial);
+  font-family: var(--font-ui);
   font-size: 1.02rem;
   line-height: 1.25;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.01em;
   color: var(--heading);
   font-weight: 600;
 }
@@ -54,21 +53,42 @@
   flex-wrap: nowrap;
 }
 
-.design-badge {
+.design-badge-group {
   min-width: 0;
   flex: 1;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.design-badge {
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 8px 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2px;
   text-align: center;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.design-badge:hover {
+  transform: translateY(-1px);
 }
 
 .design-badge strong {
-  font-family: var(--font-editorial);
-  font-size: 0.95rem;
+  font-family: var(--font-ui);
+  font-size: 0.92rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: -0.01em;
   color: var(--heading);
 }
 
@@ -77,6 +97,12 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
+}
+
+.design-badge.active {
+  border-color: rgba(59, 130, 246, 0.26);
+  background: #ffffff;
+  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.08);
 }
 
 .toolbar-actions {
@@ -110,14 +136,14 @@
 
 .ghost {
   color: var(--heading);
-  background: #fffdfa;
-  box-shadow: inset 0 0 0 1px rgba(158, 138, 120, 0.2);
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.2);
 }
 
 .primary {
   color: #fff;
-  background: linear-gradient(135deg, #8e654b, #6b4732);
-  box-shadow: 0 12px 24px rgba(111, 76, 56, 0.22);
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  box-shadow: 0 12px 24px rgba(59, 130, 246, 0.22);
 }
 
 .status-row {
@@ -147,26 +173,26 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  border: 1px solid rgba(158, 138, 120, 0.18);
+  border: 1px solid rgba(148, 163, 184, 0.18);
   border-radius: 24px;
-  background: rgba(255, 253, 250, 0.96);
-  box-shadow: 0 20px 42px rgba(54, 39, 28, 0.06);
+  background: #ffffff;
+  box-shadow: 0 20px 42px rgba(15, 23, 42, 0.06);
   overflow: hidden;
 }
 
 .panel-header {
   padding: 22px 24px 18px;
-  border-bottom: 1px solid rgba(158, 138, 120, 0.14);
-  background: linear-gradient(180deg, rgba(255, 252, 248, 1), rgba(255, 255, 255, 0.94));
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+  background: #ffffff;
 }
 
 .panel-header h2 {
   margin: 0;
-  font-family: var(--font-editorial);
+  font-family: var(--font-ui);
   font-size: 1.08rem;
   color: var(--heading);
   font-weight: 600;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.01em;
 }
 
 .panel-header p {
@@ -191,19 +217,17 @@
   flex: 1;
   padding: 24px;
   overflow: auto;
-  background:
-    radial-gradient(circle at top, rgba(197, 176, 155, 0.18), transparent 24%),
-    linear-gradient(180deg, #f7f1ea, #f2ebe2);
+  background: #ffffff;
 }
 
 .phone-preview {
   width: min(100%, 390px);
   margin: 0 auto;
   border-radius: 24px;
-  background: #fffdf9;
-  box-shadow: 0 24px 50px rgba(72, 50, 36, 0.12);
+  background: #ffffff;
+  box-shadow: 0 24px 50px rgba(15, 23, 42, 0.12);
   overflow: hidden;
-  border: 1px solid rgba(158, 138, 120, 0.16);
+  border: 1px solid rgba(148, 163, 184, 0.16);
 }
 
 .phone-preview-bar {
@@ -212,8 +236,8 @@
   align-items: center;
   gap: 12px;
   padding: 12px 16px;
-  border-bottom: 1px solid rgba(158, 138, 120, 0.16);
-  background: #fffaf4;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+  background: #ffffff;
 }
 
 .phone-preview-bar span {
@@ -223,7 +247,7 @@
 
 .phone-preview-bar strong {
   font-size: 12px;
-  color: #8c7360;
+  color: #64748b;
   letter-spacing: 0.12em;
   font-weight: 600;
 }
@@ -267,8 +291,11 @@
 
   .design-badge {
     width: 100%;
+  }
+
+  .design-badge-group {
+    width: 100%;
     order: 3;
-    padding-top: 2px;
   }
 
   .panel-header,

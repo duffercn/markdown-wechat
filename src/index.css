@@ -1,24 +1,21 @@
 :root {
-  --bg: #f4ede6;
-  --body: #2b2622;
-  --muted: #7d6f64;
-  --heading: #211b17;
-  --accent: #8d5f45;
-  --panel-border: rgba(158, 138, 120, 0.2);
+  --bg: #ffffff;
+  --body: #172033;
+  --muted: #667085;
+  --heading: #101828;
+  --accent: #3b82f6;
+  --panel-border: rgba(148, 163, 184, 0.22);
   --font-body:
-    'Source Han Serif SC', 'Noto Serif SC', 'Songti SC', 'STSong', serif;
+    'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Source Han Sans SC',
+    'Noto Sans CJK SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-ui:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
-    'Microsoft YaHei', sans-serif;
+    'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Source Han Sans SC',
+    'Noto Sans CJK SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-editorial:
-    'Iowan Old Style', 'Palatino Linotype', 'Baskerville', 'Source Han Serif SC',
-    'Noto Serif SC', serif;
+    'Source Han Serif SC', 'Noto Serif CJK SC', 'Songti SC', 'STSong', serif;
   --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
   color: var(--body);
-  background:
-    radial-gradient(circle at top left, rgba(164, 128, 99, 0.14), transparent 22%),
-    radial-gradient(circle at right center, rgba(109, 84, 64, 0.08), transparent 20%),
-    linear-gradient(180deg, #fbf7f1, #f4ede6 44%, #efe5db);
+  background: #ffffff;
   font-family: var(--font-body);
   font-synthesis: none;
   text-rendering: optimizeLegibility;

@@ -7,7 +7,7 @@ import { getTemplate, templates } from './templates'
 
 function App() {
   const [markdown, setMarkdown] = useState(SAMPLE_MARKDOWN)
-  const [templateId] = useState(templates[0]?.id ?? 'flagship')
+  const [templateId, setTemplateId] = useState(templates[0]?.id ?? 'flagship')
   const [copyStatus, setCopyStatus] = useState('')
   const deferredMarkdown = useDeferredValue(markdown)
   const template = getTemplate(templateId)
@@ -42,9 +42,18 @@ function App() {
             <h1>微信公众号文章排版工具</h1>
           </div>
 
-          <div className="design-badge">
-            <strong>{template.name}</strong>
-            <span>{template.tone}</span>
+          <div className="design-badge-group">
+            {templates.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                className={item.id === templateId ? 'design-badge active' : 'design-badge'}
+                onClick={() => setTemplateId(item.id)}
+              >
+                <strong>{item.name}</strong>
+                <span>{item.tone}</span>
+              </button>
+            ))}
           </div>
 
           <div className="toolbar-actions">
@@ -66,7 +75,7 @@ function App() {
 
         <div className="status-row" aria-live="polite">
           <span>{copyStatus || `${template.name} · ${template.description}`}</span>
-          <span className="template-note">当前为唯一旗舰方案</span>
+          <span className="template-note">3 套精选方案</span>
         </div>
       </section>
 
