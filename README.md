@@ -37,8 +37,9 @@ npm run build
 - 线上地址：https://markdown-wechat.pages.dev/
 - GitHub：https://github.com/duffercn/markdown-wechat
 - Cloudflare Pages 已连接 GitHub，推送 `master` 后自动构建发布。
-- 保留三套中文文章模板：故事心情、商业评论、教程拆解。
-- 工具界面采用中性白底，文章以黑灰文字为主。
+- 保留 GitHub 最新的三套文章模板：杂志长文、清爽标准、静雅艺廊。
+- 支持字号、行距、强调色微调，以及模板专属示例。
+- 排版设计原则及参考见 `DESIGN.md`。
 - 当前版本收尾，暂无进一步功能开发计划。
 
 ## 已知限制

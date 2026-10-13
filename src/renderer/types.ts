@@ -51,10 +51,21 @@ export type TemplateDefinition = {
   componentStyleMap: ComponentStyleMap
 }
 
+export type FontSizeOption = 'small' | 'standard' | 'large'
+
+export type LineHeightOption = 'compact' | 'standard' | 'spacious'
+
+export type AppearanceOptions = {
+  fontSize: FontSizeOption
+  lineHeight: LineHeightOption
+  accentColor: string
+}
+
 export type RenderOptions = {
   templateId: string
   sanitize: boolean
   forClipboard: boolean
+  appearance?: AppearanceOptions
 }
 
 export type RenderResult = {

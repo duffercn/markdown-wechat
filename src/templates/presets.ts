@@ -1,410 +1,535 @@
 import type { TemplateDefinition, TemplateTokens } from '../renderer/types'
 
 const sansBody =
-  "'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans CJK SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+  "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif"
+const cleanSans =
+  "Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', 'Helvetica Neue', Arial, sans-serif"
 const serifBody =
-  "'Source Han Serif SC', 'Noto Serif SC', 'Noto Serif CJK SC', 'Songti SC', 'STSong', serif"
-const editorialSerif =
-  "'Source Han Serif SC', 'Noto Serif CJK SC', 'Songti SC', 'STSong', 'Iowan Old Style', 'Palatino Linotype', serif"
-const refinedSans =
-  "'PingFang SC', 'Hiragino Sans GB', 'Source Han Sans SC', 'Noto Sans CJK SC', 'Microsoft YaHei', 'SF Pro Display', 'Helvetica Neue', sans-serif"
+  "'Source Han Serif SC', 'Noto Serif SC', 'Songti SC', 'STSong', serif"
+const elegantSerif =
+  "'Iowan Old Style', 'Palatino Linotype', 'Baskerville', 'Source Han Serif SC', 'Noto Serif SC', 'Songti SC', serif"
 const mono =
   "'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace"
 
-type ThemeOptions = {
-  id: string
-  name: string
-  description: string
-  tone: string
-  accent: string
-  text: string
-  muted: string
-  border: string
-  quote: string
-  code: string
-  tableHead: string
-  bodyFont?: string
-  headingFont?: string
-  root?: Record<string, string>
-  paragraph?: Record<string, string>
-  lead?: Record<string, string>
-  h1?: Record<string, string>
-  h2?: Record<string, string>
-  h3?: Record<string, string>
-  blockquote?: Record<string, string>
-  list?: Record<string, string>
-  listItem?: Record<string, string>
-  link?: Record<string, string>
-  strong?: Record<string, string>
-  codeBlock?: Record<string, string>
-  hr?: Record<string, string>
-  figure?: Record<string, string>
-  figcaption?: Record<string, string>
-  table?: Record<string, string>
+const editorialTokens: TemplateTokens = {
+  bodyFontFamily: serifBody,
+  headingFontFamily: elegantSerif,
+  monoFontFamily: mono,
+  textColor: '#2b2622',
+  mutedTextColor: '#6f6258',
+  accentColor: '#7b523d',
+  borderColor: '#ded2c7',
+  surfaceColor: '#fffdf9',
+  codeBackground: '#f7f1ea',
+  quoteBackground: '#faf6f0',
+  tableHeaderBackground: '#f8f2ea',
 }
 
-function createTheme(options: ThemeOptions): TemplateDefinition {
-  const tokens: TemplateTokens = {
-    bodyFontFamily: options.bodyFont ?? serifBody,
-    headingFontFamily: options.headingFont ?? options.bodyFont ?? serifBody,
-    monoFontFamily: mono,
-    textColor: options.text,
-    mutedTextColor: options.muted,
-    accentColor: options.accent,
-    borderColor: options.border,
-    surfaceColor: '#fffdf9',
-    codeBackground: options.code,
-    quoteBackground: options.quote,
-    tableHeaderBackground: options.tableHead,
-  }
-
-  return {
-    id: options.id,
-    name: options.name,
-    description: options.description,
-    tone: options.tone,
-    featured: true,
-    tokens,
-    componentStyleMap: {
-      root: {
-        color: tokens.textColor,
-        fontFamily: tokens.bodyFontFamily,
-        fontSize: '15px',
-        lineHeight: '1.78',
-        letterSpacing: '0.01em',
-        wordBreak: 'break-word',
-        ...options.root,
-      },
-      paragraph: {
-        margin: '0 0 15px',
-        color: tokens.textColor,
-        ...options.paragraph,
-      },
-      leadParagraph: {
-        margin: '0 0 20px',
-        color: tokens.mutedTextColor,
-        fontSize: '16px',
-        lineHeight: '1.86',
-        ...options.lead,
-      },
-      heading1: {
-        margin: '4px 0 18px',
-        color: '#211b17',
-        fontSize: '29px',
-        lineHeight: '1.38',
-        fontWeight: '700',
-        fontFamily: tokens.headingFontFamily,
-        ...options.h1,
-      },
-      heading2: {
-        margin: '34px 0 14px',
-        color: '#2b221c',
-        fontSize: '21px',
-        lineHeight: '1.42',
-        fontWeight: '700',
-        fontFamily: tokens.headingFontFamily,
-        ...options.h2,
-      },
-      heading3: {
-        margin: '24px 0 10px',
-        color: tokens.accentColor,
-        fontSize: '16px',
-        lineHeight: '1.42',
-        fontWeight: '700',
-        fontFamily: sansBody,
-        letterSpacing: '0.04em',
-        ...options.h3,
-      },
-      blockquote: {
-        margin: '22px 0',
-        padding: '14px 16px',
-        borderLeft: 'none',
-        background: tokens.quoteBackground,
-        color: tokens.mutedTextColor,
-        borderRadius: '14px',
-        boxShadow: `inset 0 0 0 1px ${tokens.borderColor}`,
-        ...options.blockquote,
-      },
-      list: {
-        margin: '0 0 16px 20px',
-        padding: '0',
-        ...options.list,
-      },
-      listItem: {
-        margin: '0 0 9px',
-        ...options.listItem,
-      },
-      link: {
-        color: tokens.accentColor,
-        textDecoration: 'none',
-        borderBottom: `1px solid ${tokens.accentColor}44`,
-        ...options.link,
-      },
-      strong: {
-        fontWeight: '700',
-        color: tokens.accentColor,
-        ...options.strong,
-      },
-      emphasis: {
-        fontStyle: 'italic',
-      },
-      delete: {
-        textDecoration: 'line-through',
-        color: '#a79b91',
-      },
-      inlineCode: {
-        padding: '2px 6px',
-        borderRadius: '4px',
-        background: tokens.codeBackground,
-        color: tokens.accentColor,
-        fontSize: '0.9em',
-        fontFamily: mono,
-      },
-      codeBlock: {
-        margin: '0 0 20px',
-        padding: '14px 15px',
-        borderRadius: '14px',
-        background: tokens.codeBackground,
-        color: '#4b4037',
-        fontSize: '13px',
-        lineHeight: '1.68',
-        overflowX: 'auto',
-        fontFamily: mono,
-        boxShadow: `inset 0 0 0 1px ${tokens.borderColor}`,
-        ...options.codeBlock,
-      },
-      hr: {
-        margin: '28px auto',
-        width: '68px',
-        borderTop: `1px solid ${tokens.borderColor}`,
-        ...options.hr,
-      },
-      figure: {
-        margin: '26px 0',
-        ...options.figure,
-      },
-      image: {
-        display: 'block',
-        width: '100%',
-        margin: '0 auto',
-        borderRadius: '10px',
-      },
-      figcaption: {
-        margin: '10px 0 0',
-        textAlign: 'center',
-        color: '#8a7c70',
-        fontSize: '12px',
-        letterSpacing: '0.04em',
-        ...options.figcaption,
-      },
-      table: {
-        width: '100%',
-        margin: '0 0 22px',
-        borderCollapse: 'collapse',
-        fontSize: '13px',
-        ...options.table,
-      },
-      tableHeadCell: {
-        padding: '10px 10px',
-        border: `1px solid ${tokens.borderColor}`,
-        background: tokens.tableHeaderBackground,
-        color: '#3b3028',
-        textAlign: 'left',
-        fontWeight: '700',
-      },
-      tableCell: {
-        padding: '10px 10px',
-        border: `1px solid ${tokens.borderColor}`,
-        color: '#54493f',
-        textAlign: 'left',
-        verticalAlign: 'top',
-      },
+export const editorialTemplate: TemplateDefinition = {
+  id: 'editorial-journal',
+  name: '杂志长文',
+  description: '面向故事、人物、随笔的编辑型长文版式。',
+  tone: 'Editorial / Narrative / Warm',
+  featured: true,
+  tokens: editorialTokens,
+  componentStyleMap: {
+    root: {
+      color: editorialTokens.textColor,
+      fontFamily: editorialTokens.bodyFontFamily,
+      fontSize: '16px',
+      lineHeight: '1.92',
+      letterSpacing: '0.01em',
+      wordBreak: 'break-word',
     },
-  }
+    paragraph: {
+      margin: '0 0 18px',
+      color: editorialTokens.textColor,
+    },
+    leadParagraph: {
+      margin: '0 0 30px',
+      padding: '0 8px 22px',
+      color: editorialTokens.mutedTextColor,
+      fontSize: '17px',
+      lineHeight: '2',
+      textAlign: 'center',
+      fontStyle: 'italic',
+      borderBottom: `1px solid ${editorialTokens.borderColor}`,
+    },
+    heading1: {
+      margin: '8px 0 26px',
+      color: '#18130f',
+      fontSize: '32px',
+      lineHeight: '1.42',
+      fontWeight: '600',
+      fontFamily: editorialTokens.headingFontFamily,
+      textAlign: 'center',
+      letterSpacing: '0.035em',
+    },
+    heading2: {
+      margin: '52px 0 20px',
+      padding: '0 18px 12px',
+      color: '#211914',
+      fontSize: '23px',
+      lineHeight: '1.5',
+      fontWeight: '600',
+      fontFamily: editorialTokens.headingFontFamily,
+      textAlign: 'center',
+      borderBottom: `1px solid ${editorialTokens.borderColor}`,
+    },
+    heading3: {
+      margin: '28px 0 12px',
+      color: editorialTokens.accentColor,
+      fontSize: '16px',
+      lineHeight: '1.55',
+      fontWeight: '700',
+      fontFamily: sansBody,
+      letterSpacing: '0.06em',
+    },
+    blockquote: {
+      margin: '30px 0',
+      padding: '20px 20px',
+      borderLeft: 'none',
+      background: editorialTokens.quoteBackground,
+      color: editorialTokens.mutedTextColor,
+      borderRadius: '2px',
+      boxShadow: `inset 0 0 0 1px ${editorialTokens.borderColor}`,
+      textAlign: 'center',
+      lineHeight: '2',
+    },
+    list: {
+      margin: '0 0 18px 20px',
+      padding: '0',
+    },
+    listItem: {
+      margin: '0 0 12px',
+    },
+    link: {
+      color: editorialTokens.accentColor,
+      textDecoration: 'none',
+      borderBottom: `1px solid ${editorialTokens.accentColor}44`,
+    },
+    strong: {
+      fontWeight: '700',
+      color: '#6f4c38',
+    },
+    emphasis: {
+      fontStyle: 'italic',
+      color: '#6f4c38',
+    },
+    delete: {
+      textDecoration: 'line-through',
+      color: '#a79b91',
+    },
+    inlineCode: {
+      padding: '2px 6px',
+      borderRadius: '4px',
+      background: editorialTokens.codeBackground,
+      color: editorialTokens.accentColor,
+      fontSize: '0.9em',
+      fontFamily: editorialTokens.monoFontFamily,
+    },
+    codeBlock: {
+      margin: '0 0 22px',
+      padding: '15px 16px',
+      borderRadius: '12px',
+      background: editorialTokens.codeBackground,
+      color: '#4b4037',
+      fontSize: '13px',
+      lineHeight: '1.74',
+      overflowX: 'auto',
+      fontFamily: editorialTokens.monoFontFamily,
+      boxShadow: `inset 0 0 0 1px ${editorialTokens.borderColor}`,
+    },
+    hr: {
+      margin: '42px auto',
+      width: '54px',
+      borderTop: `1px solid ${editorialTokens.borderColor}`,
+    },
+    figure: {
+      margin: '30px 0',
+    },
+    image: {
+      display: 'block',
+      width: '100%',
+      margin: '0 auto',
+      borderRadius: '10px',
+    },
+    figcaption: {
+      margin: '10px 0 0',
+      textAlign: 'center',
+      color: '#8a7c70',
+      fontSize: '12px',
+      letterSpacing: '0.04em',
+      fontStyle: 'italic',
+    },
+    table: {
+      width: '100%',
+      margin: '0 0 24px',
+      borderCollapse: 'collapse',
+      fontSize: '13px',
+    },
+    tableHeadCell: {
+      padding: '11px 10px',
+      border: `1px solid ${editorialTokens.borderColor}`,
+      background: editorialTokens.tableHeaderBackground,
+      color: '#3b3028',
+      textAlign: 'left',
+      fontWeight: '700',
+    },
+    tableCell: {
+      padding: '11px 10px',
+      border: `1px solid ${editorialTokens.borderColor}`,
+      color: '#54493f',
+      textAlign: 'left',
+      verticalAlign: 'top',
+    },
+  },
 }
 
-export const narrativeTemplate = createTheme({
-  id: 'narrative',
-  name: '故事心情',
-  description: '适合散文、日记感、人物故事和带情绪流动的长文表达。',
-  tone: '散文 / 心情 / 讲故事',
-  accent: '#4b5563',
-  text: '#1f2937',
-  muted: '#6b7280',
-  border: '#e5e7eb',
-  quote: '#fafafa',
-  code: '#f5f5f5',
-  tableHead: '#f8fafc',
-  bodyFont: serifBody,
-  headingFont: editorialSerif,
-  root: {
-    lineHeight: '1.82',
-  },
-  lead: {
-    textAlign: 'center',
-    paddingBottom: '16px',
-    borderBottom: '1px solid #e5e7eb',
-    lineHeight: '1.9',
-  },
-  h1: {
-    textAlign: 'center',
-    letterSpacing: '0.02em',
-    lineHeight: '1.46',
-  },
-  h2: {
-    paddingBottom: '9px',
-    borderBottom: '1px solid #e5e7eb',
-  },
-  h3: {
-    letterSpacing: '0.08em',
-  },
-  blockquote: {
-    textAlign: 'center',
-    lineHeight: '1.86',
-  },
-  listItem: {
-    margin: '0 0 11px',
-  },
-  figcaption: {
-    fontStyle: 'italic',
-  },
-})
+const manualTokens: TemplateTokens = {
+  bodyFontFamily: cleanSans,
+  headingFontFamily: cleanSans,
+  monoFontFamily: mono,
+  textColor: '#3f3f3f',
+  mutedTextColor: '#6f6f6f',
+  accentColor: '#0d75fc',
+  borderColor: '#dfdfdf',
+  surfaceColor: '#ffffff',
+  codeBackground: '#f8f5ec',
+  quoteBackground: 'rgba(158,158,158,0.1)',
+  tableHeaderBackground: 'rgba(0,0,0,0.05)',
+}
 
-export const letterTemplate = createTheme({
-  id: 'letter',
-  name: '商业评论',
-  description: '适合观点表达、商业观察、品牌评论和结构化评论文章。',
-  tone: '评论 / 判断 / 商业观察',
-  accent: '#111827',
-  text: '#111827',
-  muted: '#6b7280',
-  border: '#e5e7eb',
-  quote: '#f8fafc',
-  code: '#f5f7fa',
-  tableHead: '#f8fafc',
-  bodyFont: refinedSans,
-  headingFont: refinedSans,
-  root: {
-    lineHeight: '1.74',
-    letterSpacing: '0.005em',
+export const manualTemplate: TemplateDefinition = {
+  id: 'clean-standard',
+  name: '清爽标准',
+  description: '借鉴 Quaily 的克制默认版式，适合大多数公众号文章。',
+  tone: 'Clean / Neutral / WeChat',
+  tokens: manualTokens,
+  componentStyleMap: {
+    root: {
+      color: manualTokens.textColor,
+      fontFamily: manualTokens.bodyFontFamily,
+      fontSize: '16px',
+      lineHeight: '1.5',
+      letterSpacing: '0',
+      wordBreak: 'break-word',
+    },
+    paragraph: {
+      margin: '10px 10px',
+      color: manualTokens.textColor,
+      lineHeight: '1.6',
+    },
+    leadParagraph: {
+      margin: '16px 10px 28px',
+      padding: '0 0 18px',
+      color: '#5f5f5f',
+      fontSize: '16px',
+      lineHeight: '1.75',
+      borderBottom: `1px solid ${manualTokens.borderColor}`,
+    },
+    heading1: {
+      margin: '10px 10px 28px',
+      color: '#181832',
+      fontSize: '28px',
+      lineHeight: '1.38',
+      fontWeight: '700',
+      fontFamily: manualTokens.headingFontFamily,
+      letterSpacing: '0',
+    },
+    heading2: {
+      margin: '72px 10px 38px',
+      color: '#181832',
+      fontSize: '22px',
+      lineHeight: '1.45',
+      fontWeight: '400',
+      fontFamily: manualTokens.headingFontFamily,
+      textAlign: 'center',
+    },
+    heading3: {
+      margin: '40px 10px 20px',
+      color: '#2f2f2f',
+      fontSize: '19px',
+      lineHeight: '1.5',
+      fontWeight: '700',
+      fontFamily: manualTokens.headingFontFamily,
+    },
+    blockquote: {
+      margin: '20px 10px',
+      padding: '6px 0 6px 12px',
+      borderLeft: '3px solid rgb(158,158,158)',
+      background: manualTokens.quoteBackground,
+      color: '#5b5b5b',
+      lineHeight: '1.65',
+    },
+    list: {
+      margin: '10px 10px',
+      padding: '0 0 0 22px',
+    },
+    listItem: {
+      margin: '0 0 10px',
+    },
+    link: {
+      color: manualTokens.accentColor,
+      textDecoration: 'none',
+      borderBottom: `1px solid ${manualTokens.accentColor}55`,
+    },
+    strong: {
+      fontWeight: '700',
+      color: '#181832',
+    },
+    emphasis: {
+      fontStyle: 'italic',
+      color: manualTokens.textColor,
+    },
+    delete: {
+      textDecoration: 'line-through',
+      color: '#94a3b8',
+    },
+    inlineCode: {
+      padding: '3px 5px',
+      borderRadius: '2px',
+      background: manualTokens.codeBackground,
+      color: '#ff3502',
+      fontSize: '0.9em',
+      fontFamily: manualTokens.monoFontFamily,
+    },
+    codeBlock: {
+      margin: '20px 0',
+      padding: '10px',
+      borderRadius: '2px',
+      background: '#f7f7f7',
+      color: '#333333',
+      fontSize: '13px',
+      lineHeight: '1.3',
+      overflowX: 'auto',
+      fontFamily: manualTokens.monoFontFamily,
+      border: '1px solid rgb(236,236,236)',
+    },
+    hr: {
+      margin: '32px 10px',
+      borderTop: '1px solid #5a7a9b',
+    },
+    figure: {
+      margin: '20px auto',
+    },
+    image: {
+      display: 'block',
+      width: '100%',
+      margin: '0 auto',
+      borderRadius: '4px',
+    },
+    figcaption: {
+      margin: '8px 10px 0',
+      color: manualTokens.mutedTextColor,
+      fontSize: '12px',
+      lineHeight: '1.6',
+      textAlign: 'center',
+    },
+    table: {
+      width: '100%',
+      margin: '20px 0',
+      borderCollapse: 'collapse',
+      fontSize: '13px',
+    },
+    tableHeadCell: {
+      padding: '4px 8px',
+      border: `1px solid ${manualTokens.borderColor}`,
+      background: manualTokens.tableHeaderBackground,
+      color: '#3f3f3f',
+      textAlign: 'left',
+      fontWeight: '700',
+    },
+    tableCell: {
+      padding: '4px 8px',
+      border: `1px solid ${manualTokens.borderColor}`,
+      color: '#3f3f3f',
+      textAlign: 'left',
+      verticalAlign: 'top',
+    },
   },
-  paragraph: {
-    margin: '0 0 14px',
-  },
-  lead: {
-    color: '#526070',
-    fontSize: '16px',
-    lineHeight: '1.74',
-    paddingBottom: '14px',
-    borderBottom: '1px solid #e5e7eb',
-  },
-  h1: {
-    fontSize: '30px',
-    lineHeight: '1.3',
-    letterSpacing: '-0.02em',
-  },
-  h2: {
-    color: '#111827',
-    marginTop: '34px',
-    paddingLeft: '10px',
-    borderLeft: '4px solid #9ca3af',
-  },
-  h3: {
-    color: '#374151',
-    letterSpacing: '0.08em',
-    fontSize: '15px',
-  },
-  blockquote: {
-    background: '#f7fafc',
-    lineHeight: '1.76',
-  },
-  hr: {
-    width: '100%',
-    borderTop: '1px solid #e5e7eb',
-  },
-  list: {
-    marginLeft: '18px',
-  },
-  listItem: {
-    margin: '0 0 8px',
-  },
-  figcaption: {
-    color: '#66707d',
-  },
-  strong: {
-    color: '#111827',
-  },
-})
+}
 
-export const salonTemplate = createTheme({
-  id: 'salon',
-  name: '教程拆解',
-  description: '适合教程、方法论、流程说明和结构清晰的知识型内容。',
-  tone: '教程 / 步骤 / 清晰拆解',
-  accent: '#374151',
-  text: '#1f2937',
-  muted: '#6b7280',
-  border: '#e5e7eb',
-  quote: '#f9fafb',
-  code: '#f5f5f5',
-  tableHead: '#f8fafc',
-  bodyFont: sansBody,
-  headingFont: refinedSans,
-  root: {
-    lineHeight: '1.68',
-    letterSpacing: '0',
-  },
-  paragraph: {
-    margin: '0 0 14px',
-  },
-  lead: {
-    color: '#4e5f5c',
-    fontSize: '16px',
-    lineHeight: '1.68',
-    padding: '0 0 12px',
-    borderBottom: '1px solid #e5e7eb',
-  },
-  h1: {
-    fontSize: '28px',
-    lineHeight: '1.26',
-    letterSpacing: '-0.02em',
-  },
-  h2: {
-    borderLeft: '4px solid #9ca3af',
-    paddingLeft: '10px',
-    marginTop: '34px',
-  },
-  h3: {
-    color: '#374151',
-    fontSize: '15px',
-    letterSpacing: '0.08em',
-  },
-  blockquote: {
-    background: '#f4fbfa',
-    lineHeight: '1.72',
-  },
-  strong: {
-    color: '#111827',
-  },
-  codeBlock: {
-    background: '#f5f5f5',
-  },
-  hr: {
-    width: '100%',
-    borderTop: '1px solid #e5e7eb',
-  },
-  listItem: {
-    margin: '0 0 8px',
-  },
-  figcaption: {
-    color: '#6b7280',
-  },
-})
+const galleryTokens: TemplateTokens = {
+  bodyFontFamily: elegantSerif,
+  headingFontFamily: elegantSerif,
+  monoFontFamily: mono,
+  textColor: '#20201e',
+  mutedTextColor: '#6c6760',
+  accentColor: '#8d332b',
+  borderColor: '#d8d0c5',
+  surfaceColor: '#fffefb',
+  codeBackground: '#f4f1ec',
+  quoteBackground: '#fbfaf7',
+  tableHeaderBackground: '#f6f2ec',
+}
 
-export const flagshipTemplate = narrativeTemplate
+export const galleryTemplate: TemplateDefinition = {
+  id: 'quiet-gallery',
+  name: '静雅艺廊',
+  description: '面向文化、书评、艺术和生活方式的克制雅致版式。',
+  tone: 'Quiet / Cultural / Refined',
+  tokens: galleryTokens,
+  componentStyleMap: {
+    root: {
+      color: galleryTokens.textColor,
+      fontFamily: galleryTokens.bodyFontFamily,
+      fontSize: '15px',
+      lineHeight: '2.1',
+      letterSpacing: '0.015em',
+      wordBreak: 'break-word',
+    },
+    paragraph: {
+      margin: '0 0 22px',
+      color: galleryTokens.textColor,
+    },
+    leadParagraph: {
+      margin: '0 0 36px',
+      padding: '22px 12px 24px',
+      color: galleryTokens.mutedTextColor,
+      fontSize: '16px',
+      lineHeight: '2.08',
+      textAlign: 'center',
+      borderTop: `1px solid ${galleryTokens.borderColor}`,
+      borderBottom: `1px solid ${galleryTokens.borderColor}`,
+    },
+    heading1: {
+      margin: '10px 0 28px',
+      color: '#171716',
+      fontSize: '31px',
+      lineHeight: '1.52',
+      fontWeight: '500',
+      fontFamily: galleryTokens.headingFontFamily,
+      textAlign: 'center',
+      letterSpacing: '0.04em',
+    },
+    heading2: {
+      margin: '58px 0 24px',
+      padding: '0 0 14px',
+      color: '#171716',
+      fontSize: '21px',
+      lineHeight: '1.5',
+      fontWeight: '500',
+      fontFamily: galleryTokens.headingFontFamily,
+      textAlign: 'center',
+      borderBottom: `1px solid ${galleryTokens.borderColor}`,
+    },
+    heading3: {
+      margin: '34px 0 14px',
+      color: galleryTokens.accentColor,
+      fontSize: '15px',
+      lineHeight: '1.7',
+      fontWeight: '700',
+      fontFamily: sansBody,
+      textAlign: 'center',
+      letterSpacing: '0.12em',
+    },
+    blockquote: {
+      margin: '36px 0',
+      padding: '24px 18px',
+      borderLeft: 'none',
+      background: galleryTokens.quoteBackground,
+      color: galleryTokens.mutedTextColor,
+      borderRadius: '0',
+      boxShadow: `inset 0 1px 0 ${galleryTokens.borderColor}, inset 0 -1px 0 ${galleryTokens.borderColor}`,
+      textAlign: 'center',
+      lineHeight: '2.08',
+    },
+    list: {
+      margin: '0 0 20px 22px',
+      padding: '0',
+    },
+    listItem: {
+      margin: '0 0 11px',
+    },
+    link: {
+      color: galleryTokens.accentColor,
+      textDecoration: 'none',
+      borderBottom: `1px solid ${galleryTokens.accentColor}55`,
+    },
+    strong: {
+      fontWeight: '700',
+      color: galleryTokens.accentColor,
+    },
+    emphasis: {
+      fontStyle: 'italic',
+      color: '#4f4943',
+    },
+    delete: {
+      textDecoration: 'line-through',
+      color: '#9c948a',
+    },
+    inlineCode: {
+      padding: '2px 6px',
+      borderRadius: '2px',
+      background: galleryTokens.codeBackground,
+      color: galleryTokens.accentColor,
+      fontSize: '0.88em',
+      fontFamily: galleryTokens.monoFontFamily,
+    },
+    codeBlock: {
+      margin: '0 0 24px',
+      padding: '16px',
+      borderRadius: '0',
+      background: galleryTokens.codeBackground,
+      color: '#403a34',
+      fontSize: '13px',
+      lineHeight: '1.78',
+      overflowX: 'auto',
+      fontFamily: galleryTokens.monoFontFamily,
+      borderLeft: `3px solid ${galleryTokens.accentColor}`,
+    },
+    hr: {
+      margin: '48px auto',
+      width: '36px',
+      borderTop: `1px solid ${galleryTokens.accentColor}`,
+    },
+    figure: {
+      margin: '32px 0',
+    },
+    image: {
+      display: 'block',
+      width: '100%',
+      margin: '0 auto',
+      borderRadius: '2px',
+    },
+    figcaption: {
+      margin: '12px 0 0',
+      textAlign: 'center',
+      color: '#8b837a',
+      fontSize: '12px',
+      lineHeight: '1.65',
+      letterSpacing: '0.05em',
+    },
+    table: {
+      width: '100%',
+      margin: '0 0 26px',
+      borderCollapse: 'collapse',
+      fontSize: '13px',
+    },
+    tableHeadCell: {
+      padding: '11px 8px',
+      borderTop: `1px solid ${galleryTokens.borderColor}`,
+      borderBottom: `1px solid ${galleryTokens.borderColor}`,
+      background: galleryTokens.tableHeaderBackground,
+      color: '#25231f',
+      textAlign: 'left',
+      fontWeight: '700',
+    },
+    tableCell: {
+      padding: '11px 8px',
+      borderBottom: `1px solid ${galleryTokens.borderColor}`,
+      color: '#544f49',
+      textAlign: 'left',
+      verticalAlign: 'top',
+    },
+  },
+}
+
+export const flagshipTemplate = editorialTemplate
 
 export const templatesCatalog: TemplateDefinition[] = [
-  narrativeTemplate,
-  letterTemplate,
-  salonTemplate,
+  editorialTemplate,
+  manualTemplate,
+  galleryTemplate,
 ]
